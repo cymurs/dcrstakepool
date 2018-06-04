@@ -50,7 +50,7 @@
 				<a href="https://docs.decred.org/mining/proof-of-stake/#automatic-purchasing-of-tickets" target="_blank">here</a>.</strong></p>
 			<p><strong>It is recommended to use the latest versions of the Decred software before starting.&nbsp;</strong>
 			<a href="https://decred.org/downloads/" target="_blank"><span aria-label="Decred Downloads Page"> &#8675; Decred Downloads Page</span></a>
-			The <a href="https://docs.decred.org/getting-started/user-guides/dcrwallet-tickets/">dcrwallet instructions</a>
+			The <a href="https://docs.decred.org/getting-started/user-guides/ucwallet-tickets/">ucwallet instructions</a>
       are the most helpful if you wish to continue on the command-line path.</p>
 			<p><strong><u>Step 2</u></strong></p>
 			<p>Your multisignature script for delegating votes has been generated.
@@ -67,8 +67,8 @@
 				two ways:</p>
 
 			<p><strong><u>Step 3</u></strong></p>
-			<p><strong>Option A - dcrwallet - Automatic purchasing</strong></p>
-			<p>Stop dcrwallet if it is currently running and add the following to <strong>dcrwallet.conf</strong>:</p>
+			<p><strong>Option A - ucwallet - Automatic purchasing</strong></p>
+			<p>Stop ucwallet if it is currently running and add the following to <strong>ucwallet.conf</strong>:</p>
 <pre>
 [Application Options]
 enableticketbuyer=true
@@ -80,9 +80,9 @@ poolfees={{ .PoolFees }}
 ticketbuyer.votingaddress={{ .User.MultiSigAddress }}
 ticketbuyer.maxpriceabsolute=100
 </pre>
-      <p>Unlock dcrwallet and it will automatically purchase stake tickets delegated to the pool address.</p>
+      <p>Unlock ucwallet and it will automatically purchase stake tickets delegated to the pool address.</p>
 
-			<p><strong>Option B - dcrwallet - Manual purchasing</strong></p>
+			<p><strong>Option B - ucwallet - Manual purchasing</strong></p>
 			<p>Start a wallet with funds available and manually purchase tickets with the following command using <strong>dcrctl</strong>:</p>
 			<p>dcrctl {{ if eq .Network "testnet"}}--testnet{{end}} --wallet purchaseticket "fromaccount" spendlimit minconf ticketaddress numtickets poolfeeaddress poolfeeamt</p>
 <pre>

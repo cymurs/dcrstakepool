@@ -5,7 +5,7 @@
 [![Go Report Card](https://goreportcard.com/badge/github.com/decred/dcrstakepool)](https://goreportcard.com/report/github.com/decred/dcrstakepool)
 
 dcrstakepool is a web application which coordinates generating 1-of-2 multisig
-addresses on a pool of [dcrwallet](https://github.com/decred/dcrwallet) servers
+addresses on a pool of [ucwallet](https://github.com/decred/ucwallet) servers
 so users can purchase [proof-of-stake tickets](https://docs.decred.org/mining/proof-of-stake/)
 on the [Decred](https://decred.org/) network and have the pool of wallet servers
 vote on their behalf when the ticket is selected.
@@ -14,10 +14,10 @@ vote on their behalf when the ticket is selected.
 
 ![Stake Pool Architecture](https://i.imgur.com/2JDA9dl.png)
 
-- It is highly recommended to use 3 ucd+dcrwallet+stakepoold nodes for
+- It is highly recommended to use 3 ucd+ucwallet+stakepoold nodes for
   production use on mainnet.
 - The architecture is subject to change in the future to lessen the dependence
-  on dcrwallet and MySQL.
+  on ucwallet and MySQL.
 
 ## Git Tip Release notes
 
@@ -49,19 +49,19 @@ database and reload its config.
 
 ## 1.1.1 Release Notes
 
-- ucd has a new agenda and the vote version in dcrwallet has been
+- ucd has a new agenda and the vote version in ucwallet has been
   incremented to v5 on mainnet.
 - stakepoold
   - The ticket list is now maintained by doing an initial GetTicket RPC
   call and then substracts/adds tickets by processing SpentAndMissed/New
-  ticket notifications from dcrwallet.  This approach is much faster than
+  ticket notifications from ucwallet.  This approach is much faster than
   the old method of calling StakePoolUserInfo for each user.
-  - Bug fixes to the above commit and to accommodate changes in dcrwallet.
+  - Bug fixes to the above commit and to accommodate changes in ucwallet.
 - Status page
   - StatusUnauthorized error is now thrown rather than a generic one when
   accessing the page as a non-admin.
   - Updated to use new design.
-  - Synced dcrwallet walletinfo field list.
+  - Synced ucwallet walletinfo field list.
 - Tickets page
   - Performance was greatly improved by skipping display of historic tickets.
   - Handles users that have only low fee/invalid tickets properly.
@@ -75,12 +75,12 @@ database and reload its config.
 ## 1.1.1 Upgrade Guide
 
 1) Announce maintenance and shut down dcrstakepool.
-2) Perform upgrades on each ucd+dcrwallet+stakepoold voting cluster one at a
+2) Perform upgrades on each ucd+ucwallet+stakepoold voting cluster one at a
    time.
-   * Stop stakepoold, dcrwallet, and ucd.
-   * Upgrade ucd, dcrwallet to 1.1.0 release binaries or git. If compiling from
+   * Stop stakepoold, ucwallet, and ucd.
+   * Upgrade ucd, ucwallet to 1.1.0 release binaries or git. If compiling from
    source, Go 1.9 is recommended to pick up improvements to the Golang runtime.
-   * Restart ucd, dcrwallet.
+   * Restart ucd, ucwallet.
    * Upgrade stakepoold.
    * Start stakepoold.
 3) Upgrade and start dcrstakepool.  If you are maintaining a fork, note that
@@ -163,11 +163,11 @@ $ go build
 
 #### Pre-requisites
 
-These instructions assume you are familiar with ucd/dcrwallet.
+These instructions assume you are familiar with ucd/ucwallet.
 
-- Create basic ucd/dcrwallet/dcrctl config files with usernames, passwords, rpclisten, and network set appropriately within them or run example commands with additional flags as necessary
+- Create basic ucd/ucwallet/dcrctl config files with usernames, passwords, rpclisten, and network set appropriately within them or run example commands with additional flags as necessary
 
-- Build/install ucd and dcrwallet from latest master
+- Build/install ucd and ucwallet from latest master
 
 - Run ucd instances and let them fully sync
 
@@ -176,11 +176,11 @@ These instructions assume you are familiar with ucd/dcrwallet.
 - Setup a new wallet for receiving payment for stake pool fees.  **This should be completely separate from the stake pool infrastructure.**
 
 ```bash
-$ dcrwallet --create
-$ dcrwallet
+$ ucwallet --create
+$ ucwallet
 ```
 
-- Get the master pubkey for the account you wish to use. This will be needed to configure dcrwallet and dcrstakepool.
+- Get the master pubkey for the account you wish to use. This will be needed to configure ucwallet and dcrstakepool.
 
 ```bash
 $ dcrctl --wallet createnewaccount teststakepoolfees
@@ -198,13 +198,13 @@ $ dcrctl --wallet accountsyncaddressindex teststakepoolfees 0 10000
 - Create the wallets.  All wallets should have the same seed.  **Backup the seed for disaster recovery!**
 
 ```bash
-$ dcrwallet --create
+$ ucwallet --create
 ```
 
-- Start a properly configured dcrwallet and unlock it. See sample-dcrwallet.conf.
+- Start a properly configured ucwallet and unlock it. See sample-ucwallet.conf.
 
 ```bash
-$ dcrwallet
+$ ucwallet
 ```
 
 - Get the master pubkey from the default account.  This will be used for votingwalletextpub in dcrstakepool.conf.
@@ -237,12 +237,12 @@ MySQL> CREATE DATABASE stakepool;
 
 #### dcrstakepool
 
-- Create the .dcrstakepool directory and copy dcrwallet certs to it
+- Create the .dcrstakepool directory and copy ucwallet certs to it
 ```bash
 $ mkdir ~/.dcrstakepool
 $ cd ~/.dcrstakepool
-$ scp walletserver1:~/.dcrwallet/rpc.cert wallet1.cert
-$ scp walletserver2:~/.dcrwallet/rpc.cert wallet2.cert
+$ scp walletserver1:~/.ucwallet/rpc.cert wallet1.cert
+$ scp walletserver2:~/.ucwallet/rpc.cert wallet2.cert
 $ scp walletserver1:~/.stakepoold/rpc.cert stakepoold1.cert
 $ scp walletserver2:~/.stakepoold/rpc.cert stakepoold2.cert
 ```

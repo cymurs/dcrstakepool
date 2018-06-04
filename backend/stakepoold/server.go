@@ -31,8 +31,8 @@ import (
 
 	"github.com/decred/dcrstakepool/backend/stakepoold/rpc/rpcserver"
 	"github.com/decred/dcrstakepool/backend/stakepoold/userdata"
-	"github.com/decred/dcrwallet/wallet/txrules"
-	"github.com/decred/dcrwallet/wallet/udb"
+	"github.com/decred/ucwallet/wallet/txrules"
+	"github.com/decred/ucwallet/wallet/udb"
 
 	_ "github.com/go-sql-driver/mysql"
 )
@@ -310,10 +310,10 @@ func runMain() error {
 	var walletVer semver
 	walletConn, walletVer, err := connectWalletRPC(cfg)
 	if err != nil || walletConn == nil {
-		log.Infof("Connection to dcrwallet failed: %v", err)
+		log.Infof("Connection to ucwallet failed: %v", err)
 		return err
 	}
-	log.Infof("Connected to dcrwallet (JSON-RPC API v%s)",
+	log.Infof("Connected to ucwallet (JSON-RPC API v%s)",
 		walletVer.String())
 	walletInfoRes, err := walletConn.WalletInfo()
 	if err != nil || walletInfoRes == nil {
@@ -759,7 +759,7 @@ type ticketMetadata struct {
 	voteBitsExtended string                    // voteBits extended
 }
 
-// getticket pulls the transaction information for a ticket from dcrwallet. This is a go routine!
+// getticket pulls the transaction information for a ticket from ucwallet. This is a go routine!
 func (ctx *appContext) getticket(wg *sync.WaitGroup, nt *ticketMetadata) {
 	start := time.Now()
 
@@ -1130,7 +1130,7 @@ func (ctx *appContext) processWinningTickets(wt WinningTicketsForBlock) {
 		} else {
 			// If the user's voting config has a vote version that
 			// is different from our global vote version that we
-			// plucked from dcrwallet walletinfo then just use the
+			// plucked from ucwallet walletinfo then just use the
 			// default votebits.
 			if voteCfg.VoteBitsVersion !=
 				ctx.votingConfig.VoteVersion {

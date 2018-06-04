@@ -51,7 +51,7 @@
 
 [[projects]]
   branch = "master"
-  name = "github.com/decred/dcrwallet"
+  name = "github.com/decred/ucwallet"
   packages = ["apperrors","internal/helpers","internal/zero","snacl","wallet/txrules","wallet/udb","walletdb"]
   revision = "d7fe0625774bd8999b57018cfe043d4a03200860"
 

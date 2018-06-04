@@ -13,7 +13,7 @@
 
 [[constraint]]
   branch = "master"
-  name = "github.com/decred/dcrwallet"
+  name = "github.com/decred/ucwallet"
 
 [[constraint]]
   branch = "master"

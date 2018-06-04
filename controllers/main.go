@@ -24,7 +24,7 @@ import (
 	"github.com/decred/dcrstakepool/poolapi"
 	"github.com/decred/dcrstakepool/stakepooldclient"
 	"github.com/decred/dcrstakepool/system"
-	"github.com/decred/dcrwallet/wallet/udb"
+	"github.com/decred/ucwallet/wallet/udb"
 	"github.com/go-gorp/gorp"
 	"github.com/haisum/recaptcha"
 	"github.com/zenazn/goji/web"

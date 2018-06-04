@@ -9,7 +9,7 @@
 // Full documentation of the API implemented by this package is maintained in a
 // language-agnostic document:
 //
-// TODO Document gRPC API like dcrwallet once the API is stable
+// TODO Document gRPC API like ucwallet once the API is stable
 package rpcserver
 
 import (

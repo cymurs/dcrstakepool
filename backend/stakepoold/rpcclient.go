@@ -67,12 +67,12 @@ func connectWalletRPC(cfg *config) (*rpcclient.Client, semver, error) {
 
 	dcrwCert, err := ioutil.ReadFile(cfg.WalletCert)
 	if err != nil {
-		log.Errorf("Failed to read dcrwallet cert file at %s: %s\n",
+		log.Errorf("Failed to read ucwallet cert file at %s: %s\n",
 			cfg.WalletCert, err.Error())
 		return nil, walletVer, err
 	}
 
-	log.Infof("Attempting to connect to dcrwallet RPC %s as user %s "+
+	log.Infof("Attempting to connect to ucwallet RPC %s as user %s "+
 		"using certificate located in %s",
 		cfg.WalletHost, cfg.WalletUser, cfg.WalletCert)
 
@@ -99,7 +99,7 @@ func connectWalletRPC(cfg *config) (*rpcclient.Client, semver, error) {
 		return nil, walletVer, fmt.Errorf("Unable to get node RPC version")
 	}
 
-	dcrwVer := ver["dcrwalletjsonrpcapi"]
+	dcrwVer := ver["ucwalletjsonrpcapi"]
 	walletVer = semver{dcrwVer.Major, dcrwVer.Minor, dcrwVer.Patch}
 
 	if !semverCompatible(requiredWalletAPI, walletVer) {

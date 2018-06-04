@@ -15,7 +15,7 @@ import (
 	"github.com/decred/ucd/dcrutil"
 	"github.com/decred/ucd/rpcclient"
 	"github.com/decred/dcrstakepool/models"
-	"github.com/decred/dcrwallet/wallet/udb"
+	"github.com/decred/ucwallet/wallet/udb"
 )
 
 // functionName
