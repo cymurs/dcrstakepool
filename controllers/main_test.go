@@ -3,7 +3,7 @@ package controllers
 import (
 	"testing"
 
-	"github.com/decred/dcrd/chaincfg"
+	"github.com/decred/ucd/chaincfg"
 )
 
 func TestGetNetworkName(t *testing.T) {

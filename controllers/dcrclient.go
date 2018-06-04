@@ -10,10 +10,10 @@ import (
 	"sync/atomic"
 	"time"
 
-	"github.com/decred/dcrd/chaincfg/chainhash"
-	"github.com/decred/dcrd/dcrjson"
-	"github.com/decred/dcrd/dcrutil"
-	"github.com/decred/dcrd/rpcclient"
+	"github.com/decred/ucd/chaincfg/chainhash"
+	"github.com/decred/ucd/dcrjson"
+	"github.com/decred/ucd/dcrutil"
+	"github.com/decred/ucd/rpcclient"
 	"github.com/decred/dcrstakepool/models"
 	"github.com/decred/dcrwallet/wallet/udb"
 )

@@ -20,14 +20,14 @@ import (
 	"sync"
 	"time"
 
-	"github.com/decred/dcrd/blockchain/stake"
-	"github.com/decred/dcrd/chaincfg"
-	"github.com/decred/dcrd/chaincfg/chainhash"
-	"github.com/decred/dcrd/dcrjson"
-	"github.com/decred/dcrd/dcrutil"
-	"github.com/decred/dcrd/hdkeychain"
-	"github.com/decred/dcrd/rpcclient"
-	"github.com/decred/dcrd/wire"
+	"github.com/decred/ucd/blockchain/stake"
+	"github.com/decred/ucd/chaincfg"
+	"github.com/decred/ucd/chaincfg/chainhash"
+	"github.com/decred/ucd/dcrjson"
+	"github.com/decred/ucd/dcrutil"
+	"github.com/decred/ucd/hdkeychain"
+	"github.com/decred/ucd/rpcclient"
+	"github.com/decred/ucd/wire"
 
 	"github.com/decred/dcrstakepool/backend/stakepoold/rpc/rpcserver"
 	"github.com/decred/dcrstakepool/backend/stakepoold/userdata"
@@ -373,7 +373,7 @@ func runMain() error {
 	// Daemon client connection
 	nodeConn, nodeVer, err := connectNodeRPC(ctx, cfg)
 	if err != nil || nodeConn == nil {
-		log.Infof("Connection to dcrd failed: %v", err)
+		log.Infof("Connection to ucd failed: %v", err)
 		return err
 	}
 	ctx.nodeConnection = nodeConn
@@ -381,10 +381,10 @@ func runMain() error {
 	// Display connected network
 	curnet, err := nodeConn.GetCurrentNet()
 	if err != nil {
-		log.Errorf("Unable to get current network from dcrd: %v", err)
+		log.Errorf("Unable to get current network from ucd: %v", err)
 		return err
 	}
-	log.Infof("Connected to dcrd (JSON-RPC API v%s) on %v",
+	log.Infof("Connected to ucd (JSON-RPC API v%s) on %v",
 		nodeVer.String(), curnet.String())
 
 	// prune save data
@@ -430,7 +430,7 @@ func runMain() error {
 	for {
 		curHash, curHeight, err := nodeConn.GetBestBlock()
 		if err != nil {
-			log.Errorf("unable to get bestblock from dcrd: %v", err)
+			log.Errorf("unable to get bestblock from ucd: %v", err)
 			return err
 		}
 		log.Infof("current block height %v hash %v", curHeight, curHash)
@@ -443,7 +443,7 @@ func runMain() error {
 
 		afterHash, afterHeight, err := nodeConn.GetBestBlock()
 		if err != nil {
-			log.Errorf("unable to get bestblock from dcrd: %v", err)
+			log.Errorf("unable to get bestblock from ucd: %v", err)
 			return err
 		}
 
@@ -476,7 +476,7 @@ func runMain() error {
 			"spent/missed tickets notifications: %s\n", err.Error())
 		return err
 	}
-	log.Info("subscribed to notifications from dcrd")
+	log.Info("subscribed to notifications from ucd")
 
 	if !cfg.NoRPCListen {
 		startGRPCServers(ctx.grpcCommandQueueChan)

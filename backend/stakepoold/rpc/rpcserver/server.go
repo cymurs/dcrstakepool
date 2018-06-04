@@ -18,7 +18,7 @@ import (
 	"golang.org/x/net/context"
 	"google.golang.org/grpc"
 
-	"github.com/decred/dcrd/chaincfg/chainhash"
+	"github.com/decred/ucd/chaincfg/chainhash"
 	pb "github.com/decred/dcrstakepool/backend/stakepoold/rpc/stakepoolrpc"
 	"github.com/decred/dcrstakepool/backend/stakepoold/userdata"
 )

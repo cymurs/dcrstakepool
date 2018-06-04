@@ -16,7 +16,7 @@ import (
 	"strings"
 
 	flags "github.com/btcsuite/go-flags"
-	"github.com/decred/dcrd/dcrutil"
+	"github.com/decred/ucd/dcrutil"
 )
 
 const (
@@ -56,7 +56,7 @@ var (
 // to parse and execute service commands specified via the -s flag.
 var runServiceCommand func(string) error
 
-// config defines the configuration options for dcrd.
+// config defines the configuration options for ucd.
 //
 // See loadConfig for details on the configuration load process.
 type config struct {

@@ -5,9 +5,9 @@ import (
 	"io/ioutil"
 	"time"
 
-	"github.com/decred/dcrd/chaincfg/chainhash"
-	"github.com/decred/dcrd/dcrutil"
-	"github.com/decred/dcrd/rpcclient"
+	"github.com/decred/ucd/chaincfg/chainhash"
+	"github.com/decred/ucd/dcrutil"
+	"github.com/decred/ucd/rpcclient"
 	"github.com/decred/dcrstakepool/backend/stakepoold/userdata"
 )
 
@@ -17,14 +17,14 @@ var requiredWalletAPI = semver{major: 5, minor: 0, patch: 0}
 func connectNodeRPC(ctx *appContext, cfg *config) (*rpcclient.Client, semver, error) {
 	var nodeVer semver
 
-	dcrdCert, err := ioutil.ReadFile(cfg.DcrdCert)
+	ucdCert, err := ioutil.ReadFile(cfg.DcrdCert)
 	if err != nil {
-		log.Errorf("Failed to read dcrd cert file at %s: %s\n",
+		log.Errorf("Failed to read ucd cert file at %s: %s\n",
 			cfg.DcrdCert, err.Error())
 		return nil, nodeVer, err
 	}
 
-	log.Debugf("Attempting to connect to dcrd RPC %s as user %s "+
+	log.Debugf("Attempting to connect to ucd RPC %s as user %s "+
 		"using certificate located in %s",
 		cfg.DcrdHost, cfg.DcrdUser, cfg.DcrdCert)
 
@@ -33,25 +33,25 @@ func connectNodeRPC(ctx *appContext, cfg *config) (*rpcclient.Client, semver, er
 		Endpoint:     "ws", // websocket
 		User:         cfg.DcrdUser,
 		Pass:         cfg.DcrdPassword,
-		Certificates: dcrdCert,
+		Certificates: ucdCert,
 	}
 
 	ntfnHandlers := getNodeNtfnHandlers(ctx, connCfgDaemon)
-	dcrdClient, err := rpcclient.New(connCfgDaemon, ntfnHandlers)
+	ucdClient, err := rpcclient.New(connCfgDaemon, ntfnHandlers)
 	if err != nil {
-		log.Errorf("Failed to start dcrd RPC client: %s\n", err.Error())
+		log.Errorf("Failed to start ucd RPC client: %s\n", err.Error())
 		return nil, nodeVer, err
 	}
 
 	// Ensure the RPC server has a compatible API version.
-	ver, err := dcrdClient.Version()
+	ver, err := ucdClient.Version()
 	if err != nil {
 		log.Error("Unable to get RPC version: ", err)
 		return nil, nodeVer, fmt.Errorf("Unable to get node RPC version")
 	}
 
-	dcrdVer := ver["dcrdjsonrpcapi"]
-	nodeVer = semver{dcrdVer.Major, dcrdVer.Minor, dcrdVer.Patch}
+	ucdVer := ver["ucdjsonrpcapi"]
+	nodeVer = semver{ucdVer.Major, ucdVer.Minor, ucdVer.Patch}
 
 	if !semverCompatible(requiredChainServerAPI, nodeVer) {
 		return nil, nodeVer, fmt.Errorf("Node JSON-RPC server does not have "+
@@ -59,7 +59,7 @@ func connectNodeRPC(ctx *appContext, cfg *config) (*rpcclient.Client, semver, er
 			nodeVer, requiredChainServerAPI)
 	}
 
-	return dcrdClient, nodeVer, nil
+	return ucdClient, nodeVer, nil
 }
 
 func connectWalletRPC(cfg *config) (*rpcclient.Client, semver, error) {

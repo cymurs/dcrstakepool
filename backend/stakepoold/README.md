@@ -1,7 +1,7 @@
 stakepoold
 ====
 
-The goal of stakepoold is to communicate with dcrd/dcrwallet/dcrstakepool via client/server gRPC in order to handle all stakepool functions that are currently in dcrwallet or are undefined/unhandled.
+The goal of stakepoold is to communicate with ucd/dcrwallet/dcrstakepool via client/server gRPC in order to handle all stakepool functions that are currently in dcrwallet or are undefined/unhandled.
 
 ## First:
 

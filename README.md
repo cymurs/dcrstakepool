@@ -14,7 +14,7 @@ vote on their behalf when the ticket is selected.
 
 ![Stake Pool Architecture](https://i.imgur.com/2JDA9dl.png)
 
-- It is highly recommended to use 3 dcrd+dcrwallet+stakepoold nodes for
+- It is highly recommended to use 3 ucd+dcrwallet+stakepoold nodes for
   production use on mainnet.
 - The architecture is subject to change in the future to lessen the dependence
   on dcrwallet and MySQL.
@@ -49,7 +49,7 @@ database and reload its config.
 
 ## 1.1.1 Release Notes
 
-- dcrd has a new agenda and the vote version in dcrwallet has been
+- ucd has a new agenda and the vote version in dcrwallet has been
   incremented to v5 on mainnet.
 - stakepoold
   - The ticket list is now maintained by doing an initial GetTicket RPC
@@ -75,16 +75,16 @@ database and reload its config.
 ## 1.1.1 Upgrade Guide
 
 1) Announce maintenance and shut down dcrstakepool.
-2) Perform upgrades on each dcrd+dcrwallet+stakepoold voting cluster one at a
+2) Perform upgrades on each ucd+dcrwallet+stakepoold voting cluster one at a
    time.
-   * Stop stakepoold, dcrwallet, and dcrd.
-   * Upgrade dcrd, dcrwallet to 1.1.0 release binaries or git. If compiling from
+   * Stop stakepoold, dcrwallet, and ucd.
+   * Upgrade ucd, dcrwallet to 1.1.0 release binaries or git. If compiling from
    source, Go 1.9 is recommended to pick up improvements to the Golang runtime.
-   * Restart dcrd, dcrwallet.
+   * Restart ucd, dcrwallet.
    * Upgrade stakepoold.
    * Start stakepoold.
 3) Upgrade and start dcrstakepool.  If you are maintaining a fork, note that
-   you need to update the dcrd/chaincfg dependency to a revision that contains
+   you need to update the ucd/chaincfg dependency to a revision that contains
    the new agenda.
 4) dcrstakepool will reset the votebits for all users to 1 when it detects the
    new vote version via stakepoold.
@@ -163,13 +163,13 @@ $ go build
 
 #### Pre-requisites
 
-These instructions assume you are familiar with dcrd/dcrwallet.
+These instructions assume you are familiar with ucd/dcrwallet.
 
-- Create basic dcrd/dcrwallet/dcrctl config files with usernames, passwords, rpclisten, and network set appropriately within them or run example commands with additional flags as necessary
+- Create basic ucd/dcrwallet/dcrctl config files with usernames, passwords, rpclisten, and network set appropriately within them or run example commands with additional flags as necessary
 
-- Build/install dcrd and dcrwallet from latest master
+- Build/install ucd and dcrwallet from latest master
 
-- Run dcrd instances and let them fully sync
+- Run ucd instances and let them fully sync
 
 #### Stake pool fees/cold wallet
 
@@ -296,7 +296,7 @@ were processed.
 
 #### For v1.1.1 and below
 
-If a user pays an incorrect fee you may add their tickets like so (requires dcrd running with txindex=1):
+If a user pays an incorrect fee you may add their tickets like so (requires ucd running with txindex=1):
 
 ```bash
 dcrctl --wallet stakepooluserinfo "MultiSigAddress" | grep -Pzo '(?<="invalid": \[)[^\]]*' | tr -d , | xargs -Itickethash dcrctl --wallet getrawtransaction tickethash | xargs -Itickethex dcrctl --wallet addticket "tickethex"

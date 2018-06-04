@@ -11,8 +11,8 @@ import (
 	"strconv"
 	"testing"
 
-	"github.com/decred/dcrd/chaincfg"
-	"github.com/decred/dcrd/chaincfg/chainhash"
+	"github.com/decred/ucd/chaincfg"
+	"github.com/decred/ucd/chaincfg/chainhash"
 	"github.com/decred/dcrstakepool/backend/stakepoold/userdata"
 )
 

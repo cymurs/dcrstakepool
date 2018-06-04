@@ -16,7 +16,7 @@ import (
 	"strings"
 
 	flags "github.com/btcsuite/go-flags"
-	"github.com/decred/dcrd/dcrutil"
+	"github.com/decred/ucd/dcrutil"
 )
 
 const (
@@ -45,7 +45,7 @@ var (
 // to parse and execute service commands specified via the -s flag.
 var runServiceCommand func(string) error
 
-// config defines the configuration options for dcrd.
+// config defines the configuration options for ucd.
 //
 // See loadConfig for details on the configuration load process.
 type config struct {
@@ -67,10 +67,10 @@ type config struct {
 	DBPassword       string  `long:"dbpassword" description:"Password for database connection"`
 	DBPort           string  `long:"dbport" description:"Port for database connection"`
 	DBName           string  `long:"dbname" description:"Name of database"`
-	DcrdHost         string  `long:"dcrdhost" description:"Hostname/IP for dcrd server"`
-	DcrdUser         string  `long:"dcrduser" description:"Username for dcrd server"`
-	DcrdPassword     string  `long:"dcrdpassword" description:"Password for dcrd server"`
-	DcrdCert         string  `long:"dcrdcert" description:"Certificate path for dcrd server"`
+	DcrdHost         string  `long:"ucdhost" description:"Hostname/IP for ucd server"`
+	DcrdUser         string  `long:"ucduser" description:"Username for ucd server"`
+	DcrdPassword     string  `long:"ucdpassword" description:"Password for ucd server"`
+	DcrdCert         string  `long:"ucdcert" description:"Certificate path for ucd server"`
 	WalletHost       string  `long:"wallethost" description:"Hostname for wallet server"`
 	WalletUser       string  `long:"walletuser" description:"Username for wallet server"`
 	WalletPassword   string  `long:"walletpassword" description:"Password for wallet server"`
@@ -487,28 +487,28 @@ func loadConfig() (*config, []string, error) {
 	}
 
 	if len(cfg.DcrdHost) == 0 {
-		str := "%s: dcrdhost is not set in config"
+		str := "%s: ucdhost is not set in config"
 		err := fmt.Errorf(str, funcName)
 		fmt.Fprintln(os.Stderr, err)
 		return nil, nil, err
 	}
 
 	if len(cfg.DcrdCert) == 0 {
-		str := "%s: dcrdcert is not set in config"
+		str := "%s: ucdcert is not set in config"
 		err := fmt.Errorf(str, funcName)
 		fmt.Fprintln(os.Stderr, err)
 		return nil, nil, err
 	}
 
 	if len(cfg.DcrdUser) == 0 {
-		str := "%s: dcrduser is not set in config"
+		str := "%s: ucduser is not set in config"
 		err := fmt.Errorf(str, funcName)
 		fmt.Fprintln(os.Stderr, err)
 		return nil, nil, err
 	}
 
 	if len(cfg.DcrdPassword) == 0 {
-		str := "%s: dcrdpassword is not set in config"
+		str := "%s: ucdpassword is not set in config"
 		err := fmt.Errorf(str, funcName)
 		fmt.Fprintln(os.Stderr, err)
 		return nil, nil, err
@@ -549,7 +549,7 @@ func loadConfig() (*config, []string, error) {
 	if !fileExists(cfg.DcrdCert) {
 		path := filepath.Join(cfg.HomeDir, cfg.DcrdCert)
 		if !fileExists(path) {
-			str := "%s: dcrdcert " + cfg.DcrdCert + " and " +
+			str := "%s: ucdcert " + cfg.DcrdCert + " and " +
 				path + " don't exist"
 			err := fmt.Errorf(str, funcName)
 			fmt.Fprintln(os.Stderr, err)
