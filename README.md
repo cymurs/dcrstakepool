@@ -1,13 +1,13 @@
 # dcrstakepool
 
-[![GoDoc](https://godoc.org/github.com/decred/dcrstakepool?status.svg)](https://godoc.org/github.com/decred/dcrstakepool)
-[![Build Status](https://travis-ci.org/decred/dcrstakepool.svg?branch=master)](https://travis-ci.org/decred/dcrstakepool)
-[![Go Report Card](https://goreportcard.com/badge/github.com/decred/dcrstakepool)](https://goreportcard.com/report/github.com/decred/dcrstakepool)
+[![GoDoc](https://godoc.org/github.com/cymurs/dcrstakepool?status.svg)](https://godoc.org/github.com/cymurs/dcrstakepool)
+[![Build Status](https://travis-ci.org/cymurs/dcrstakepool.svg?branch=master)](https://travis-ci.org/cymurs/dcrstakepool)
+[![Go Report Card](https://goreportcard.com/badge/github.com/cymurs/dcrstakepool)](https://goreportcard.com/report/github.com/cymurs/dcrstakepool)
 
 dcrstakepool is a web application which coordinates generating 1-of-2 multisig
-addresses on a pool of [ucwallet](https://github.com/decred/ucwallet) servers
-so users can purchase [proof-of-stake tickets](https://docs.decred.org/mining/proof-of-stake/)
-on the [Decred](https://decred.org/) network and have the pool of wallet servers
+addresses on a pool of [ucwallet](https://github.com/cymurs/ucwallet) servers
+so users can purchase [proof-of-stake tickets](https://docs.cymurs.org/mining/proof-of-stake/)
+on the [Cymurs](https://cymurs.org/) network and have the pool of wallet servers
 vote on their behalf when the ticket is selected.
 
 ## Architecture
@@ -32,7 +32,7 @@ database and reload its config.
   performing the upgrade steps outlined below.
 - **KNOWN ISSUE** Total tickets count reported by stakepoold may
   not be totally accurate until low fee tickets that have been added to
-  the database can be marked as voted.  This will be resolved by future work. ([#201](https://github.com/decred/dcrstakepool/issues/201)).
+  the database can be marked as voted.  This will be resolved by future work. ([#201](https://github.com/cymurs/dcrstakepool/issues/201)).
 
 ## Git Tip Upgrade Guide
 
@@ -125,15 +125,15 @@ install the project.
 - Run the following command to obtain the dcrstakepool code and all dependencies:
 
 ```bash
-$ git clone https://github.com/decred/dcrstakepool $GOPATH/src/github.com/decred/dcrstakepool
-$ cd $GOPATH/src/github.com/decred/dcrstakepool
+$ git clone https://github.com/cymurs/dcrstakepool $GOPATH/src/github.com/cymurs/dcrstakepool
+$ cd $GOPATH/src/github.com/cymurs/dcrstakepool
 $ dep ensure
 ```
 
 - Assuming you have done the below configuration, build and run dcrstakepool:
 
 ```bash
-$ cd $GOPATH/src/github.com/decred/dcrstakepool
+$ cd $GOPATH/src/github.com/cymurs/dcrstakepool
 $ go build
 $ ./dcrstakepool
 ```
@@ -141,7 +141,7 @@ $ ./dcrstakepool
 - Build stakepoold and copy it to your voting nodes:
 
 ```bash
-$ cd $GOPATH/src/github.com/decred/dcrstakepool/backend/stakepoold
+$ cd $GOPATH/src/github.com/cymurs/dcrstakepool/backend/stakepoold
 $ go build
 ```
 
@@ -151,11 +151,11 @@ To update an existing source tree, pull the latest changes and install the
 matching dependencies:
 
 ```bash
-$ cd $GOPATH/src/github.com/decred/dcrstakepool
+$ cd $GOPATH/src/github.com/cymurs/dcrstakepool
 $ git pull
 $ dep ensure
 $ go build
-$ cd $GOPATH/src/github.com/decred/dcrstakepool/backend/stakepoold
+$ cd $GOPATH/src/github.com/cymurs/dcrstakepool/backend/stakepoold
 $ go build
 ```
 
@@ -258,7 +258,7 @@ The easiest way to run the stakepool code is to run it directly from the root of
 the source tree:
 
 ```bash
-$ cd $GOPATH/src/github.com/decred/dcrstakepool
+$ cd $GOPATH/src/github.com/cymurs/dcrstakepool
 $ go build
 $ ./dcrstakepool
 ```
@@ -321,11 +321,11 @@ dcrctl --wallet stakepooluserinfo "MultiSigAddress" | grep -Pzo '(?<="invalid": 
 ## IRC
 
 - irc.freenode.net
-- channel #decred
+- channel #cymurs
 
 ## Issue Tracker
 
-The [integrated github issue tracker](https://github.com/decred/dcrstakepool/issues)
+The [integrated github issue tracker](https://github.com/cymurs/dcrstakepool/issues)
 is used for this project.
 
 ## License
